@@ -17,7 +17,3 @@ jobs:
         run: |
           cargo build
           cargo test
-      - name: Report test results
-        if: status.code == 0
-        run: |
-          cargo test --colored
