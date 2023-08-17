@@ -1,0 +1,23 @@
+name: Run Rust tests
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Rust
+        run: |
+          curl --silent https://sh.rustup.rs/nightly.sh | sh
+          source $HOME/.cargo/env
+      - name: Build and test
+        run: |
+          cargo build
+          cargo test
+      - name: Report test results
+        if: status.code == 0
+        run: |
+          cargo test --colored
