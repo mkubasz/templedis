@@ -3,4 +3,5 @@
 members = [
     "templedis",
     "server",
+    "cli"
 ]
