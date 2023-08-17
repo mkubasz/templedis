@@ -4,16 +4,16 @@ on:
     branches:
       - main
 jobs:
-  build-and-test:
+  tests:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install Rust
+      - uses: actions/checkout@v3
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          cache: true
+      - name: tests
         run: |
-          curl --silent https://sh.rustup.rs/nightly.sh | sh
-          source $HOME/.cargo/env
-      - name: Build and test
-        run: |
-          cargo build
-          cargo test
+          cargo check
+          cargo test --all-features --no-fail-fast
