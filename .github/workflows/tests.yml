@@ -4,6 +4,16 @@ on:
     branches:
       - main
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          cache: true
+      - name: build
+        run: cargo build --release --all-features
   tests:
     needs: build
     runs-on: ubuntu-latest
