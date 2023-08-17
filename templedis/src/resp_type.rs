@@ -1,6 +1,7 @@
 use regex::Regex;
 #[derive(Debug)]
 #[derive(PartialEq)]
+#[allow(dead_code)]
 pub enum RESPType {
     SimpleString(String),
     Error(String),
@@ -9,11 +10,13 @@ pub enum RESPType {
     Array(Option<Vec<RESPType>>),
 }
 
+#[allow(dead_code)]
 pub struct RESPData {
     data: RESPType,
     size: usize,
 }
 
+#[allow(dead_code)]
 impl RESPData {
     pub fn new(data: RESPType, size: usize) -> Self {
         RESPData { data, size }
@@ -58,12 +61,14 @@ impl RESPDeserializer for RESPData {
     }
 }
 
+#[allow(dead_code)]
 fn formatter(buffer: &str) -> Vec<&str> {
     let re = Regex::new(r"\r\n").unwrap();
     let split = re.split(buffer).collect::<Vec<&str>>();
     split
 }
 
+#[allow(dead_code)]
 fn serialize(split: Vec<&str>) -> Option<RESPData> {
     let (first, second) = split[0].split_at(1);
     match first {
